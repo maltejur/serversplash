@@ -1,11 +1,10 @@
 {
-  "name": "shorsh",
-  "version": "0.1.0",
+  "name": "serversplash",
+  "license": "MIT",
   "scripts": {
-    "dev": "parcel serve src/index.html",
-    "build": "rm ./dist/index.*.css; rm ./dist/index.*.css.map; rm ./dist/index.*.js; rm ./dist/index.*.js.map; parcel build src/index.html"
+    "dev": "serve ."
   },
   "dependencies": {
-    "parcel": "^2.0.0-beta.2"
+    "serve": "^13.0.2"
   }
 }
