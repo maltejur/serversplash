@@ -1,143 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title id="title"></title>
-    <style>
-      html,
-      body {
-        margin: 0;
-        height: 100vh;
-        overflow: hidden;
-      }
 
-      body {
-        color: black;
-        transition: color 0.4s ease;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="title"></title>
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
 
-      body.loaded {
-        color: white;
-      }
+    body {
+      color: black;
+      transition: color 0.4s ease;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
 
-      #background {
-        position: fixed;
-        z-index: -1;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        pointer-events: none;
-        opacity: 0;
-        transform: scale(1.1);
-        filter: blur(15px);
-        transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-      }
+    body.loaded {
+      color: white;
+    }
 
-      body.loaded #background {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-      }
+    #background {
+      position: fixed;
+      z-index: -1;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(1.1);
+      filter: blur(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
 
+    body.loaded #background {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+
+    h1 {
+      position: fixed;
+      bottom: 100px;
+      left: 100px;
+      font-size: 60px;
+    }
+
+    @media (max-width: 500px) {
       h1 {
-        position: fixed;
-        bottom: 100px;
-        left: 100px;
-        font-size: 60px;
+        bottom: 30px;
+        left: 30px;
+        font-size: 40px;
+      }
+    }
+
+    .loader {
+      position: fixed;
+      z-index: -2;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+
+    .loader::before {
+      content: "";
+      height: 4px;
+      width: 60px;
+      background-color: black;
+      animation: loader-4 0.8s cubic-bezier(0, 0, 0.03, 0.9) infinite;
+    }
+
+    @keyframes loader-4 {
+
+      0%,
+      44%,
+      88.1%,
+      100% {
+        transform-origin: left;
       }
 
-      @media (max-width: 500px) {
-        h1 {
-          bottom: 30px;
-          left: 30px;
-          font-size: 40px;
-        }
+      0%,
+      100%,
+      88% {
+        transform: scaleX(0);
       }
 
-      .loader {
-        position: fixed;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        justify-content: center;
-        align-items: center;
-        display: flex;
+      44.1%,
+      88% {
+        transform-origin: right;
       }
 
-      .loader::before {
-        content: "";
-        height: 4px;
-        width: 60px;
-        background-color: black;
-        animation: loader-4 0.8s cubic-bezier(0, 0, 0.03, 0.9) infinite;
+      33%,
+      44% {
+        transform: scaleX(1);
       }
+    }
 
-      @keyframes loader-4 {
-        0%,
-        44%,
-        88.1%,
-        100% {
-          transform-origin: left;
-        }
+    #services {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 150px);
+      gap: 20px;
+      margin: 100px;
+    }
 
-        0%,
-        100%,
-        88% {
-          transform: scaleX(0);
-        }
+    #services>a {
+      width: 150px;
+      height: 200px;
+      background-color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      border-radius: 20px;
+      transition: background 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
+      box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.1);
+    }
 
-        44.1%,
-        88% {
-          transform-origin: right;
-        }
+    #services>a>img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+    }
 
-        33%,
-        44% {
-          transform: scaleX(1);
-        }
-      }
-    </style>
-  </head>
+    #services>a>span {
+      width: 150px;
+      height: 20px;
+      padding: 10px 20px 20px 20px;
+      color: black;
+      font-weight: 600;
+      font-size: 18px;
+    }
 
-  <body>
-    <i class="loader"></i>
-    <img id="background" />
-    <h1 id="heading" />
-    <script>
-      ["title", "heading"].forEach(
-        (id) =>
-          (document.getElementById(id).innerText = window.location.hostname)
-      );
+    #services>a:hover {
+      background-color: rgba(255, 255, 255, 1);
+      text-decoration: underline black;
+      box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
 
-      const background = document.getElementById("background");
+<body>
+  <i class="loader"></i>
+  <img id="background" />
+  <h1 id="heading" />
+  <script>
+    ["title", "heading"].forEach(
+      (id) =>
+        (document.getElementById(id).innerText = window.location.hostname)
+    );
 
-      const vw = Math.floor(
-        Math.max(
-          document.documentElement.clientWidth || 0,
-          window.innerWidth || 0
-        )
-      );
-      const vh = Math.floor(
-        Math.max(
-          document.documentElement.clientHeight || 0,
-          window.innerHeight || 0
-        )
-      );
+    const background = document.getElementById("background");
 
-      background.src = `https://source.unsplash.com/collection/1053828/${vw}x${vh}`;
-      background.addEventListener("load", () => {
-        document.body.classList.add("loaded");
-      });
-    </script>
-  </body>
+    const vw = Math.floor(
+      Math.max(
+        document.documentElement.clientWidth || 0,
+        window.innerWidth || 0
+      )
+    );
+    const vh = Math.floor(
+      Math.max(
+        document.documentElement.clientHeight || 0,
+        window.innerHeight || 0
+      )
+    );
+
+    background.src = `https://source.unsplash.com/collection/1053828/${vw}x${vh}`;
+    background.addEventListener("load", () => {
+      document.body.classList.add("loaded");
+    });
+
+    const services = document.createElement("div");
+    services.id = "services";
+
+    fetch("/services.json")
+      .then((res) => res.json())
+      .then((res) => res.forEach(service => {
+        const card = document.createElement("a");
+        card.href = service.url;
+
+        const img = document.createElement("img");
+        img.src = service.img;
+
+        const label = document.createElement("span");
+        label.innerText = service.name;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        services.appendChild(card);
+      }))
+      .then(() => document.body.appendChild(services))
+      .catch();
+  </script>
+</body>
+
 </html>
