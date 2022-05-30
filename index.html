@@ -117,6 +117,7 @@
     #services>a {
       width: 150px;
       height: 200px;
+      --color: black;
       background-color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
       display: flex;
@@ -129,21 +130,22 @@
     #services>a>img {
       width: 150px;
       height: 150px;
-      object-fit: contain;
+      object-fit: cover;
+      border-radius: 19px 19px 0 0;
     }
 
     #services>a>span {
       width: 150px;
       height: 20px;
       padding: 10px 20px 20px 20px;
-      color: black;
+      color: var(--color);
       font-weight: 600;
       font-size: 18px;
     }
 
     #services>a:hover {
       background-color: rgba(255, 255, 255, 1);
-      text-decoration: underline black;
+      text-decoration: underline var(--color);
       box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
       transform: scale(1.02);
     }
@@ -154,6 +156,7 @@
   <i class="loader"></i>
   <img id="background" />
   <h1 id="heading" />
+  <script src="https://cdn.jsdelivr.net/npm/tinycolor2@1.4.2/tinycolor.min.js"></script>
   <script>
     ["title", "heading"].forEach(
       (id) =>
@@ -190,7 +193,20 @@
         card.href = service.url;
 
         const img = document.createElement("img");
+        if (!service.img) {
+          service.img = "https://i.imgur.com/2X1WseC.png";
+          service.bg = "white";
+        }
         img.src = service.img;
+        if (service.bg) {
+          img.style.padding = "20px";
+          img.style.width = "110px";
+          img.style.height = "110px";
+          img.style.objectFit = "contain";
+          card.style.background = service.bg;
+          if (tinycolor(service.bg).isDark())
+            card.style.setProperty("--color", "white");
+        }
 
         const label = document.createElement("span");
         label.innerText = service.name;
